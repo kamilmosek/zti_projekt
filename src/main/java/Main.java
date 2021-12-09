@@ -1,6 +1,7 @@
 import org.apache.jena.query.*;
 import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
-
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.riot.RDFDataMgr;
 import java.util.Scanner;
 
 public class Main {
@@ -23,6 +24,16 @@ public class Main {
             ((QueryEngineHTTP)qexec).addParam("timeout", "10000") ;
 
             // Execute.
+            Model model = RDFDataMgr.loadModel("src/data/file_1.ttl") ;
+
+            // Create a dataset and read into it from file
+            // "data.trig" assumed to be TriG.
+            Dataset dataset = RDFDataMgr.loadDataset("src/data/file_1.ttl") ;
+
+            // Read into an existing Model
+            // RDFDataMgr.read(model, "data2.ttl") ;
+
+
             ResultSet rs = qexec.execSelect();
             ResultSetFormatter.out(System.out, rs, query);
         } catch (Exception e) {
