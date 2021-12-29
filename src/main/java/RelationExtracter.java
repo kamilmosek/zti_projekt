@@ -7,15 +7,10 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class StringTransformation {
+public class RelationExtracter {
     private final String text;
     private CoreDocument coreDocument;
     private StanfordCoreNLP stanfordCoreNLP;
@@ -23,9 +18,11 @@ public class StringTransformation {
     private List<CoreSentence> sentenceList;
     File file;// = new File("filename.txt");
     private final String filename;
+    private PositionMapper positionMapper;
 
-    public StringTransformation(String text) {
+    public RelationExtracter(String text) {
         this.text = text;
+        positionMapper = new PositionMapper();
         this.stanfordCoreNLP = Pipeline.getPipeline();
         this.coreDocument = new CoreDocument(text);
         stanfordCoreNLP.annotate(coreDocument);
@@ -50,7 +47,7 @@ public class StringTransformation {
         List<CoreSentence> sentenceList = coreDocument.sentences();
         for (CoreSentence s : sentenceList) {
             System.out.println("Sentiment: " + s.sentiment() + "\t" + s.toString());
-            fileWriter.write("Sentiment: " + s.sentiment() + "\t" + s.toString() + "\n");
+            fileWriter.write("Sentiment: " + s.sentiment() + "\t SENTENCE: " + s.toString() + "\n");
         }
 
 
@@ -64,6 +61,7 @@ public class StringTransformation {
             System.out.println(coreLabel.originalText() + "\t\t\t position: " + position +
                     "\t\t\t lemmaemmatization: " + lemma + "\t\t\t named entity recognition: " + ner);
             fileWriter.write("original text: " + coreLabel.originalText() + "\t\t\t position: " + position +
+                    " " + positionMapper.getPositionDescription(position) +
                     "\t\t\t lemmaemmatization: " + lemma + "\t\t\t named entity recognition: " + ner + "\n");
 
         }
