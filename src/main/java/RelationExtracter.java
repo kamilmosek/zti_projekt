@@ -58,8 +58,9 @@ public class RelationExtracter {
             String position = coreLabel.get(CoreAnnotations.PartOfSpeechAnnotation.class);
             String lemma = coreLabel.lemma();
             String ner = coreLabel.get(CoreAnnotations.NamedEntityTagAnnotation.class);
-            System.out.println(coreLabel.originalText() + "\t\t\t position: " + position +
-                    "\t\t\t lemmaemmatization: " + lemma + "\t\t\t named entity recognition: " + ner);
+            System.out.println("original text: " + coreLabel.originalText() + "\t\t\t position: " + position +
+                    " " + positionMapper.getPositionDescription(position) +
+                    "\t\t\t lemmaemmatization: " + lemma + "\t\t\t named entity recognition: " + ner + "\n");
             fileWriter.write("original text: " + coreLabel.originalText() + "\t\t\t position: " + position +
                     " " + positionMapper.getPositionDescription(position) +
                     "\t\t\t lemmaemmatization: " + lemma + "\t\t\t named entity recognition: " + ner + "\n");
