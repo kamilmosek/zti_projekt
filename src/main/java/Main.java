@@ -13,8 +13,8 @@ public class Main {
 //                    "a role with Antonio. Antonio is a actor who is Jewish, he won three Oscar statuette and 30 thousand euros. A year ago, he died of cancer."+
 //                    "His funeral was held in Paris. It was the saddest thing I have ever seen. The closing speech was given by PhD. Brown"+
 //                    "Next to his grave, there is a monument to the great Pole, John Paul II. THE END OF THIS BEAUTIFUL STORY!";
-            RelationExtracter stringTransformation = new RelationExtracter(text);
-            stringTransformation.getRelations();
+            RelationExtracter relationExtracter = new RelationExtracter(text);
+            relationExtracter.getRelations();
 
         } catch (Exception e) {
             e.printStackTrace();
