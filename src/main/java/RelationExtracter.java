@@ -1,7 +1,9 @@
+import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.CoreDocument;
 import edu.stanford.nlp.pipeline.CoreSentence;
+import edu.stanford.nlp.pipeline.SentenceAnnotator;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 import java.io.File;
@@ -66,6 +68,19 @@ public class RelationExtracter {
                     "\t\t\t lemmaemmatization: " + lemma + "\t\t\t named entity recognition: " + ner + "\n");
 
         }
+
+        System.out.println("\n\nTRIPLES \n\n");
+        fileWriter.write("\n\nTRIPLES \n\n");
+
+
+        for(CoreSentence s : sentenceList){
+            List<RelationTriple> relations = s.relations();
+            for(RelationTriple triple : relations){
+                System.out.println(triple);
+                fileWriter.write(triple+"\n");
+            }
+        }
+
 
         System.out.println("RESULTS SAVED TO FILE " + this.filename);
         fileWriter.close();
