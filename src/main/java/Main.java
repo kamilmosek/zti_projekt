@@ -19,6 +19,7 @@ public class Main {
 
             // Get relations
             RelationExtractor relationExtractor = new RelationExtractor(text);
+            relationExtractor.printRelations();
             ArrayList<RelationTriple> relationsList = relationExtractor.getRelations();
 
             // Query DBpedia
